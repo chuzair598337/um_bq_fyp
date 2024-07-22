@@ -5,6 +5,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeNavLink, setActiveNavLink] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -40,6 +41,8 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
+
+
           <div className="nav__close" id="nav-close" onClick={toggleMenu}>
             <IoClose />
           </div>
@@ -49,6 +52,7 @@ const Navbar = () => {
           <IoMenu />
         </div>
       </nav>
+
     </header>
   );
 };
