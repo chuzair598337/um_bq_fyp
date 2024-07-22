@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar/Navbar";
+import Home from "./pages/Home";
+import Reciter from "./pages/Reciter";
+import Bayan from "./pages/Bayan";
+import Tafheem from "./pages/Tafheem";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* Responsive Navigation Bar */}
+      <Navbar />
+
+      {/* Main Pages Content */}
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/reciter" element={<Reciter />} />
+          <Route path="/bayan" element={<Bayan />} />
+          <Route path="/tafheem" element={<Tafheem />} />
+        </Routes>
+      </main>
+    </Router>
   );
-}
+};
 
 export default App;
