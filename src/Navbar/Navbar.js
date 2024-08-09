@@ -5,8 +5,6 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeNavLink, setActiveNavLink] = useState(false);
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -27,17 +25,17 @@ const Navbar = () => {
             </li>
             <li className="nav__item">
               <NavLink to="/reciter" className="nav__link" onClick={toggleMenu}>
-                Reciter
+                Bookmarks
               </NavLink>
             </li>
             <li className="nav__item">
               <NavLink to="/bayan" className="nav__link" onClick={toggleMenu}>
-                Bayan
+                Chains
               </NavLink>
             </li>
             <li className="nav__item">
               <NavLink to="/tafheem" className="nav__link" onClick={toggleMenu}>
-                Tafheem
+                Settings
               </NavLink>
             </li>
           </ul>
