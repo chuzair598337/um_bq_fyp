@@ -23,7 +23,8 @@ function Music() {
 
     const min = 0;
     const max = 100;
-    const percentage = ((seekValue - min) / (max - min)) * 100;
+    const volumeCapacity = ((seekValue - min) / (max - min)) * 100;
+    const percentage = ((volumeValue - min) / (max - min)) * 100;
 
     return (
         <div className="player">
@@ -46,7 +47,7 @@ function Music() {
                         value={seekValue}
                         onChange={(e) => handleSeekChange(e.target.value)}
                         style={{
-                            background: `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${percentage}%, #DEE2E6 ${percentage}%, #DEE2E6 100%)`
+                            background: `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${seekValue}%, #DEE2E6 ${seekValue}%, #DEE2E6 100%)`
                         }}
                         className="seek_slider"
                     />
@@ -62,6 +63,9 @@ function Music() {
                         value={volumeValue}
                         onChange={(e) => handleVolumeChange(e.target.value)}
                         className="volume_slider"
+                        style={{
+                            background: `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${volumeValue}%, #DEE2E6 ${volumeValue}%, #DEE2E6 100%)`
+                        }}
                     />
                     <i className="fas fa-volume-up"></i>
                 </div>
