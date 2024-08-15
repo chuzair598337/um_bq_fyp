@@ -22,9 +22,9 @@
 }
 
 body {
- background-color: var(--body-color);
+ /* background-color: var(--body-color);
  color: var(--text-color);
- font-family: var(--body-font);
+ font-family: var(--body-font); */
 }
 
 ul {
