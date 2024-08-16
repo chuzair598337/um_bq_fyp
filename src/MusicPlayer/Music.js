@@ -1,10 +1,9 @@
 
-import React, { useState } from 'react';
+import React  from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "./Music.css";
 import { useMusic } from './MusicContext'
 import formatTime from '../utils/formatTime';
-import { BiVolume } from 'react-icons/bi';
 
 function Music() {
 
@@ -18,13 +17,8 @@ function Music() {
         handleVolumeChange,
         play,
         pause,
-        stop
+        //stop
     } = useMusic();
-
-    const min = 0;
-    const max = 100;
-    const volumeCapacity = ((seekValue - min) / (max - min)) * 100;
-    const percentage = ((volumeValue - min) / (max - min)) * 100;
 
     return (
         <div className="player">

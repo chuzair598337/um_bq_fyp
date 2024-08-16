@@ -7,7 +7,6 @@ function Home() {
     <>
       <div className='home_buttons'>
 
-
         <div className='btn btnTilawat'>
           <NavLink to="/tilawat" className="navlink">
             Tilawat
@@ -16,11 +15,6 @@ function Home() {
         <div className='btn btnBayan'>
           <NavLink to="/bayan" className="navlink">
             Bayan
-          </NavLink>
-        </div>
-        <div className='btn btnTafheem'>
-          <NavLink to="/tafheem" className="navlink">
-            Tafheem
           </NavLink>
         </div>
       </div>

@@ -156,3 +156,17 @@ i.fa-step-backward,
 p {
     cursor: pointer;
 }
+
+
+/* Responsive Music Player */
+
+@media(max-width:768px){
+    .player{
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        width: 100%;
+
+    }
+}

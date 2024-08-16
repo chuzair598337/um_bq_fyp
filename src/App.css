@@ -30,6 +30,7 @@ body, html {
 
 @media (max-width: 768px) {
   .wrapper {
-    padding-top: 60px;
+    padding-top: 70px;
+    align-items: normal;
   }
 }
