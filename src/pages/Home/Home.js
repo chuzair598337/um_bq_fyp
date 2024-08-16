@@ -6,8 +6,6 @@ function Home() {
   return (
     <>
       <div className='home_buttons'>
-
-
         <div className='btn btnTilawat'>
           <NavLink to="/tilawat" className="navlink">
             Tilawat
