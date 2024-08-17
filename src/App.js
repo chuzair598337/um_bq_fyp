@@ -25,8 +25,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/reciter" element={<Reciter />} />
-            <Route path="/bayan" element={<Bayan />} />
-            <Route path="/Verses/:item" element={<Verses />} />
+            <Route path="/Bayan" element={<Bayan />} />
+            <Route path="/Verses/:surahID" element={<Verses />} />
             <Route path="/tafheem" element={<Tafheem />} />
             <Route path="/tilawat" element={<Tilawat />} />
           </Routes>

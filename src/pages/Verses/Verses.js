@@ -1,28 +1,49 @@
-// src/pages/Verses/Verses.js
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import './Verses.css';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; 
+import './Verses.css'; 
+import * as API from '../APIWrapper'; 
 
 function Verses() {
-  const { item } = useParams(); // Get the item from URL parameter
+  const [QuranEPak, setQuranEPak] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
+  const { surahID } = useParams(); 
 
-  const verses = [
-    { id: 1, text: "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ" }, 
-    { id: 2, text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ" }
-  ];
+  useEffect(() => {
+    const loadQuranEPak = async () => {
+      try {
+        setLoading(true); 
+        const data = await API.fetchQuranEPakbySId(surahID); 
+        console.log(data);
+        setQuranEPak(data); 
+      } catch (error) {
+        console.error('Failed to fetch QuranEPak:', error); 
+        setError('Failed to fetch data. Please try again later.'); 
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    loadQuranEPak(); 
+  }, [surahID]); 
 
   return (
     <div className="scrollable-list">
-      <ul className="list">
-        {verses.map((verse) => (
-          <li key={verse.id} className="card">
-            <div className="leading">
-              <span className="leadingText">{verse.id}</span>
-            </div>
-            <span className="cardTitle">{verse.text}</span>
-          </li>
-        ))}
-      </ul>
+      {loading && <p>Loading...</p>} 
+      {error && <p className="error">{error}</p>} 
+      {!loading && !error && (
+        <ul className="list">
+          {QuranEPak.map(verse => (
+            <li key={verse.quranEPakID} className="card">
+              <div className="leading">
+                <span className="leadingText">{verse.VerseID}</span> 
+              </div>
+              <span className="cardTitle">{verse.AyahText}</span> 
+              <span className="cardTrailing">{verse.UrduAyahText}</span> 
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
