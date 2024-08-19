@@ -11,6 +11,7 @@ import Tilawat from "./pages/Tilawat/Tilawat";
 import Recorder from "./Recorder/Recorder";
 import Music from "./MusicPlayer/Music";
 import {MusicProvider} from "./MusicPlayer/MusicContext";
+import Chains from "./Components/Chains/Chains";
 
 const App = () => {
   return (
@@ -28,11 +29,12 @@ const App = () => {
         <main className="wrapper">
           <div className="content">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/reciter" element={<Reciter />} />
               <Route path="/bayan" element={<Bayan />} />
               <Route path="/tafheem" element={<Tafheem />} />
               <Route path="/tilawat" element={<Tilawat />} />
+              <Route path="/" element={<Chains />} />
             </Routes>
           </div>
         </main>

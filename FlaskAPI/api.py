@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
+CORS(app)
 
 database = 'BQ_Database.db'
 
@@ -270,6 +272,129 @@ def delete_bookmark(bookmark_id):
     conn.commit()
     conn.close()
     return jsonify({"message": "Bookmark deleted successfully"})
+
+
+# ------------------- Chain Routes -------------------
+
+# Select All Chains
+@app.route('/api/chains', methods=['GET'])
+def get_chains():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Chains")
+    chains = cursor.fetchall()
+    conn.close()
+    return jsonify([row_to_dict(row) for row in chains])
+
+# Select Chain by ID
+@app.route('/api/chains/<int:chain_id>', methods=['GET'])
+def get_chain(chain_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Chains WHERE chainID=?", (chain_id,))
+    chain = cursor.fetchone()
+    conn.close()
+    if chain:
+        return jsonify(row_to_dict(chain))
+    else:
+        return jsonify({"error": "Chains not found"}), 404
+
+# Create a new Chain
+@app.route('/api/chains', methods=['POST'])
+def create_chain():
+    data = request.json
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Chains (chainTitle) VALUES (?)", (data['chainTitle'],))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Chains created successfully"}), 201
+
+# Update Chain by ID
+@app.route('/api/chains/<int:chain_id>', methods=['PUT'])
+def update_chain(chain_id):
+    data = request.json
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Chain SET chainTitle=? WHERE chainID=?", (data['chainTitle'], chain_id))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Chain updated successfully"})
+
+# Delete Chain by ID
+@app.route('/api/chains/<int:chain_id>', methods=['DELETE'])
+def delete_chain(chain_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Chain WHERE chainID=?", (chain_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Chain deleted successfully"})
+
+# ------------------- ChainDetail Routes -------------------
+
+# Select All ChainDetails
+@app.route('/api/chaindetails', methods=['GET'])
+def get_chaindetails():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM chainDetail")
+    chaindetails = cursor.fetchall()
+    conn.close()
+    return jsonify([row_to_dict(row) for row in chaindetails])
+
+# Select ChainDetail by ID
+@app.route('/api/chaindetails/<int:chaindetail_id>', methods=['GET'])
+def get_chaindetail(chaindetail_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM chainDetail WHERE chainDetailID=?", (chaindetail_id,))
+    chaindetail = cursor.fetchone()
+    conn.close()
+    if chaindetail:
+        return jsonify(row_to_dict(chaindetail))
+    else:
+        return jsonify({"error": "ChainDetail not found"}), 404
+
+# Create a new ChainDetail
+@app.route('/api/chaindetails', methods=['POST'])
+def create_chaindetail():
+    data = request.json
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO chainDetail (chainID, verseFrom, verseTo, repeatCount, sequenceNo)
+        VALUES (?, ?, ?, ?, ?)""",
+        (data['chainID'], data['verseFrom'], data['verseTo'], data['repeatCount'], data['sequenceNo']))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "ChainDetail created successfully"}), 201
+
+# Update ChainDetail by ID
+@app.route('/api/chaindetails/<int:chaindetail_id>', methods=['PUT'])
+def update_chaindetail(chaindetail_id):
+    data = request.json
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE chainDetail
+        SET chainID=?, verseFrom=?, verseTo=?, repeatCount=?, sequenceNo=?
+        WHERE chainDetailID=?""",
+        (data['chainID'], data['verseFrom'], data['verseTo'], data['repeatCount'], data['sequenceNo'], chaindetail_id))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "ChainDetail updated successfully"})
+
+# Delete ChainDetail by ID
+@app.route('/api/chaindetails/<int:chaindetail_id>', methods=['DELETE'])
+def delete_chaindetail(chaindetail_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM chainDetail WHERE chainDetailID=?", (chaindetail_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "ChainDetail deleted successfully"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
