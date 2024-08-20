@@ -1,0 +1,59 @@
+.container {
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .back-button {
+    font-size: 24px;
+    color: #4a148c;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .header-text {
+    color: #4a148c;
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 20px;
+  }
+  
+  .input-container {
+    background-color: #f9e6e4;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #4a148c;
+  }
+  
+  .input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .save-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4a148c;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-button:hover {
+    background-color: #5d17a4;
+  }
+  

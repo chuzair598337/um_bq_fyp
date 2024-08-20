@@ -1,4 +1,3 @@
-/* Ensure the list container takes up the full height and allows scrolling */
 .scrollable-list {
   height: 100vh; /* Full viewport height */
   overflow-y: auto; /* Enables vertical scrolling */

@@ -3,20 +3,32 @@ import { NavLink } from 'react-router-dom';
 import './BookMark.css';
 import { IoBookmark } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
+import { fetchBookmarks, deleteBookmark } from '../APIWrapper'; // Importing both fetch and delete functions
 
 const BookMark = ({ history }) => {
   const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
-    const mockBookmarks = [
-      { bookmarkID: 1, verseFrom: 'Al-Fatiha', bookmarkTitle: 'Verse 1', verseTo: 'Verse 7' },
-      { bookmarkID: 2, verseFrom: 'Al-Baqarah', bookmarkTitle: 'Verse 1', verseTo: 'Verse 286' },
-    ];
-    setBookmarks(mockBookmarks);
+    const getBookmarks = async () => {
+      try {
+        const data = await fetchBookmarks(); // Fetch bookmarks from the API
+        setBookmarks(data); // Set the fetched bookmarks to the state
+      } catch (error) {
+        console.error("Failed to fetch bookmarks:", error);
+      }
+    };
+
+    getBookmarks(); // Call the function to fetch bookmarks when the component mounts
   }, []);
 
-  const handleDelete = (bookmarkID) => {
-    setBookmarks((prevBookmarks) => prevBookmarks.filter((bookmark) => bookmark.bookmarkID !== bookmarkID));
+  const handleDelete = async (bookmarkID) => {
+    try {
+      await deleteBookmark(bookmarkID); // Delete the bookmark from the database
+      setBookmarks((prevBookmarks) => prevBookmarks.filter((bookmark) => bookmark.bookmarkID !== bookmarkID)); // Remove the bookmark from the state
+    } catch (error) {
+      console.error("Failed to delete bookmark:", error);
+      // Optionally, you could show an alert or a message to the user if deletion fails
+    }
   };
 
   const renderItem = (item) => (
@@ -29,12 +41,6 @@ const BookMark = ({ history }) => {
 
   return (
     <div className="container">
-      <div className="header">
-        <NavLink to="/home">
-          <IoBookmark size={30} color="#4a148c" />
-        </NavLink>
-        <h1 className="header-text">Bookmark</h1>
-      </div>
       <div className="bookmark-list">
         {bookmarks.map(renderItem)}
       </div>

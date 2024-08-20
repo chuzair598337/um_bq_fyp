@@ -30,6 +30,7 @@ const App = () => {
             <Route path="/BayanVerses/:surahID" element={<BayanVerses />} />
             <Route path="/tafheem" element={<Tafheem />} />
             <Route path="/tilawat" element={<Tilawat />} /> 
+            <Route path="/TilawatVerses/:surahID" element={<TilawatVerses />} />
             <Route path="/BookMark" element={<BookMark />} />
             <Route path="/AddBookMark" element={<AddBookMark />} />
             <Route path="/AddBookMark" element={<AddBookMark />} />

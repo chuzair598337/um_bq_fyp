@@ -40,7 +40,6 @@ function TilawatVerses() {
                 <span className="leadingText">{verse.VerseID}</span>
               </div>
               <span className="cardTitle">{verse.AyahText}</span>
-              
             </li>
           ))}
         </ul>
