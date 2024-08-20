@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import * as API from '../APIWrapper'; 
-import './Tilawat.css';
+import './Bayan.css';
 
-function Tilawat() {
+function Bayan() {
   const [surahs, setSurahs] = useState([]);
   const navigate = useNavigate(); 
 
@@ -22,7 +22,7 @@ function Tilawat() {
   }, []);
 
   const handleSurahClick = (surahID) => {
-    navigate(`/TilawatVerses/${surahID}`);
+    navigate(`/BayanVerses/${surahID}`);
   };
   
 
@@ -47,4 +47,4 @@ function Tilawat() {
   );
 }
 
-export default Tilawat;
+export default Bayan;

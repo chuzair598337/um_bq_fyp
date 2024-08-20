@@ -1,27 +1,31 @@
-/* Ensure the list container takes up the full height and allows scrolling */
+
 .scrollable-list {
-  height: 100vh; /* Full viewport height */
-  overflow-y: auto; /* Enables vertical scrolling */
-  padding: 10px; /* Add padding if needed */
-  background-color: #fff; /* Optional: Set background color */
+  height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #fff;
 }
 
 .list {
   list-style: none;
-  padding-top: 30px;
+  padding-top: 100px;
   margin: 0;
-  width: 303px;
+  width: 100%; 
   padding-bottom: 30px;
 }
-
 .card {
+  top:100px;
+  height: 120px;
   display: flex;
-  align-items: center;
+  padding-top: 100px;
+  flex-direction:column; 
+  align-items: flex-start;
   padding: 16px;
-  margin: 4px 8px;
+  margin: 2px 8px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 16px); 
 }
 
 .leading {
@@ -40,29 +44,27 @@
   color: #4a148c;
 }
 
-.cardTitle,.cardTrailing {
-  font-size: 15px;
+.cardTitle {
+  font-size: 14px; 
   font-weight: bold;
   color: #4a148c;
-  text-align: left;
+  margin-bottom: 4px; 
 }
 
 .cardTrailing {
-  margin-left: auto;
+  font-size:6px; 
+  color: #4a148c;
 }
 
 @media (max-width: 768px) {
   .list {
-    width: 345px;
-    
+      width: calc(100% - 20px); 
   }
   .scrollable-list {
-    
-  margin-right:20px; 
-    width: 388px;
+      margin-right: 20px;
+      width: calc(100% - 20px); 
   }
   .card {
-    width:345px;
+      width: calc(100% - 16px); 
   }
-
 }

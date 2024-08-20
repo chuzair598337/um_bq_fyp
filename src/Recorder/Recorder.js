@@ -14,7 +14,7 @@ export default function Recorder() {
 
     const handleMouseLeave = () => {
         setIsHovered(false);
-        setIsPressed(false); // Reset when the mouse leaves
+        setIsPressed(false); 
     };
 
     const handleMouseDown = () => {

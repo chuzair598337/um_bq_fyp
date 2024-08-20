@@ -11,11 +11,9 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <nav className="nav container">
         <NavLink to="/" className="nav__logo">
           Audio Quran
         </NavLink>
-
         <div className={`nav__menu ${menuOpen ? 'show-menu' : ''}`} id="nav-menu">
           <ul className="nav__list">
             <li className="nav__item">
@@ -24,7 +22,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav__item">
-              <NavLink to="/reciter" className="nav__link" onClick={toggleMenu}>
+              <NavLink to="/BookMark" className="nav__link" onClick={toggleMenu}>
                 Bookmarks
               </NavLink>
             </li>
@@ -49,7 +47,7 @@ const Navbar = () => {
         <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
           <IoMenu />
         </div>
-      </nav>
+      
 
     </header>
   );
