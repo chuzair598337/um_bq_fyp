@@ -3,7 +3,7 @@ import React  from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "./Music.css";
 import { useMusic } from './MusicContext'
-import formatTime from '../utils/formatTime';
+import formatTime from '../../utils/formatTime';
 
 function Music() {
 

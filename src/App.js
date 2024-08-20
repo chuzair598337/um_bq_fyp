@@ -2,16 +2,16 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./Components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Reciter from "./pages/Reciter";
 import Bayan from "./pages/Bayan/Bayan";
 import BayanVerses from "./pages/BayanVerses/BayanVerses";
 import Tafheem from "./pages/Tafheem";
 import Tilawat from "./pages/Tilawat/Tilawat";
-import Recorder from "./Recorder/Recorder";
-import Music from "./MusicPlayer/Music";
-import {MusicProvider} from "./MusicPlayer/MusicContext";
+import Recorder from "./Components/Recorder/Recorder";
+import Music from "./Components/MusicPlayer/Music";
+import {MusicProvider} from "./Components/MusicPlayer/MusicContext";
 import Chains from "./Components/Chains/Chains";
 import Recordbtn from "./Temp/recordingButton/Recordbtn";
 import BookMark from "./pages/BookMark/BookMark";
@@ -37,12 +37,13 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/reciter" element={<Reciter />} />
-            <Route path="/Bayan" element={<Bayan />} />
-            <Route path="/BayanVerses/:surahID" element={<BayanVerses />} />
+            <Route path="/bayan" element={<Bayan />} />
+            <Route path="/bayanverses/:surahID" element={<BayanVerses />} />
             <Route path="/tafheem" element={<Tafheem />} />
             <Route path="/tilawat" element={<Tilawat />} /> 
-            <Route path="/BookMark" element={<BookMark />} />
-            <Route path="/AddBookMark" element={<AddBookMark />} />
+            <Route path="/bookmark" element={<BookMark />} />
+            <Route path="/chains" element={<Chains />} />
+            <Route path="/addbookmark" element={<AddBookMark />} />
           </Routes>
           </div>
         </main>

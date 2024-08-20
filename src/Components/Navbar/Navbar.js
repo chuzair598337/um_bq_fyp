@@ -27,12 +27,12 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav__item">
-              <NavLink to="/bayan" className="nav__link" onClick={toggleMenu}>
+              <NavLink to="/chains" className="nav__link" onClick={toggleMenu}>
                 Chains
               </NavLink>
             </li>
             <li className="nav__item">
-              <NavLink to="/tafheem" className="nav__link" onClick={toggleMenu}>
+              <NavLink to="/settings" className="nav__link" onClick={toggleMenu}>
                 Settings
               </NavLink>
             </li>
