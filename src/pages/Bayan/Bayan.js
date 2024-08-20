@@ -22,7 +22,7 @@ function Bayan() {
   }, []);
 
   const handleSurahClick = (surahID) => {
-    navigate(`/Verses/${surahID}`); 
+    navigate(`/BayanVerses/${surahID}`);
   };
   
 

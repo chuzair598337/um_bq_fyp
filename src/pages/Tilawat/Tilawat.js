@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
-import * as API from '../APIWrapper'; // Corrected import path
+import React, { useState, useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
+import * as API from '../APIWrapper'; 
 import './Tilawat.css';
 
 function Tilawat() {
   const [surahs, setSurahs] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const loadSurahs = async () => {
@@ -19,16 +21,25 @@ function Tilawat() {
     loadSurahs();
   }, []);
 
+  const handleSurahClick = (surahID) => {
+    navigate(`/TilawatVerses/${surahID}`);
+  };
+  
+
   return (
     <div className="scrollable-list">
       <ul className="list">
         {surahs.map(surah => (
-          <li key={surah.surahID} className="card">
+          <li 
+            key={surah.surahID} 
+            className="card" 
+            onClick={() => handleSurahClick(surah.surahID)} 
+          >
             <div className="leading">
-              <span className="leadingText">{surah.surahID}</span> {/* Display Surah ID */}
+              <span className="leadingText">{surah.surahID}</span> 
             </div>
-            <span className="cardTitle">{surah.surahEnglishName}</span> {/* Display English name */}
-            <span className="cardTrailing">{surah.surahArabicName}</span> {/* Display Arabic name */}
+            <span className="cardTitle">{surah.surahEnglishName}</span> 
+            <span className="cardTrailing">{surah.surahArabicName}</span> 
           </li>
         ))}
       </ul>
