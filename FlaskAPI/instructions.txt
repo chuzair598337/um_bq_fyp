@@ -1,4 +1,0 @@
-
-* install extension python
-* run api.py
-

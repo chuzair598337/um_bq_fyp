@@ -74,16 +74,15 @@ const Chains = () => {
         <div class="chainContainer">
             <div class="table-wrapper">
                 <div class="table-title">
-                    <h2>Employee <b>Details</b></h2>
+                    <h2>Chains</h2>
                     <button type="button" class="btn-info">
-                    <FaPlus />
+                        <FaPlus />
                     </button>
                 </div>
-                <table>
+                <table className='chainTable'>
                     <thead>
                         <tr>
-                            <th>Chain Title</th>
-                            <th>Actions</th>
+                            <th colSpan={2}>Chains List</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,12 +90,8 @@ const Chains = () => {
                             <tr key={chain.chainID}>
                                 <td>{chain.chainTitle}</td>
                                 <td class="actions">
-                                    <div className="editBtn">
-                                        <FaEdit onClick={() => handleEdit(chain)} />
-                                    </div>
-                                    <div className="deleteBtn">
-                                       <FaTrash onClick={() => handleDelete(chain.chainID)} />
-                                    </div>
+                                    <FaEdit className='editBtn actionsBtn' onClick={() => handleEdit(chain)} title='Edit' />
+                                    <FaTrash className='deleteBtn actionsBtn' onClick={() => handleDelete(chain.chainID)} title='Delete' />
                                 </td>
                             </tr>
                         ))}
