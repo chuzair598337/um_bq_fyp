@@ -1,27 +1,6 @@
-.chainContainer {
-    width: 100%;
-    height: 100%;
-    margin: 20px auto;
-}
-.table-wrapper {
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.table-title {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.table-title h2 {
-    margin: 0;
-    font-size: 24px;
-}
+
 .btn-info {
     background: #17a2b8;
-    border: none;
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
@@ -29,24 +8,6 @@
     font-size: 14px;
     display: flex;
     align-items: center;
-}
-.btn-info i {
-    margin-right: 5px;
-}
-.chainTable{
-    width: 100%;
-    border-collapse: collapse;
-}
-.chainTable th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-.chainTable th {
-    background: #f2f2f2;
-}
-.chainTable tr:hover {
-    background-color: #f1f1f1;
 }
 .actions{
     display: flex;

@@ -1,6 +1,5 @@
 /* src/Navbar/Navbar.css */
 :root {
-    --header-height: 60px;
     --first-color: #3498db;
     --title-color: #333;
     --font-semi-bold: 600;
@@ -14,14 +13,14 @@
     background-color: #F4E1AC;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    height:10px,
+    height: var(--navbar_height),
   }
   
   .nav {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: var(--header-height);
+    height: var(--navbar_height);
     padding: 0 1rem;
   }
   

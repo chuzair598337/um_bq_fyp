@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { fetchChains, deleteChain, createChain, updateChain } from '../APIWrapper/APIWrapper';
 import Modal from 'react-modal';
 import { Container, Button, Table } from 'react-bootstrap';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
 import "./Chains.css"
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPlusSquare, faEdit } from '@fortawesome/free-regular-svg-icons';
+
 
 const Chains = () => {
     const [chains, setChains] = useState([]);
@@ -13,6 +16,8 @@ const Chains = () => {
     const [editMode, setEditMode] = useState(false);
     const [currentChain, setCurrentChain] = useState({ id: null, title: '' });
     const [newChainTitle, setNewChainTitle] = useState('');
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const loadChains = async () => {
@@ -25,6 +30,10 @@ const Chains = () => {
         };
         loadChains();
     }, []);
+
+    const handleChainClick = (chainID) => {
+        navigate(`/chaindetail/${chainID}`)
+    }
 
     const handleDelete = async (id) => {
         try {
@@ -71,33 +80,42 @@ const Chains = () => {
     };
 
     return (
-        <div class="chainContainer">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <h2>Chains</h2>
-                    <button type="button" class="btn-info">
-                        <FaPlus />
-                    </button>
-                </div>
-                <table className='chainTable'>
-                    <thead>
-                        <tr>
-                            <th colSpan={2}>Chains List</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {chains.map((chain) => (
-                            <tr key={chain.chainID}>
-                                <td>{chain.chainTitle}</td>
-                                <td class="actions">
-                                    <FaEdit className='editBtn actionsBtn' onClick={() => handleEdit(chain)} title='Edit' />
-                                    <FaTrash className='deleteBtn actionsBtn' onClick={() => handleDelete(chain.chainID)} title='Delete' />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+
+        <div className="Container">
+            <div className='containerTitle'>
+                <h2>Chains</h2>
+                <FontAwesomeIcon
+                    class="btn-info"
+                    icon={faPlusSquare}
+                    size='2x'
+                    onClick={() => handleAdd()}
+                    title='Delete'
+                />
             </div>
+            <ul className="containerList">
+                {chains.map(chain => (
+                    <li
+                        key={chain.chainID}
+                        className="card"
+                    >
+                        <div className='cardContent' onClick={() => handleChainClick(chain.chainID)}>
+                            <span className="cardTitleEnglish">{chain.chainTitle}</span>
+                        </div>
+                        <span className='actionButtons'>
+                            <FontAwesomeIcon
+                                icon={faEdit}
+                                onClick={() => handleEdit(chain)}
+                                title='Edit'
+                            />
+                            <FontAwesomeIcon
+                                icon={faTrashCan}
+                                onClick={() => handleDelete(chain.chainID)}
+                                title='Delete'
+                            />
+                        </span>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };
