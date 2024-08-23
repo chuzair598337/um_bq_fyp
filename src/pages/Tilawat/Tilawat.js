@@ -31,7 +31,7 @@ function Tilawat() {
     navigate(`/TilawatVerses/${surahID}`);
   };
 
-  const playSurah = (surahID) => {
+  const playPause = (surahID) => {
     setPlayingStates((prevStates) => ({
       ...prevStates,
       [surahID]: !prevStates[surahID] // Toggle the state for the specific Surah
@@ -42,8 +42,8 @@ function Tilawat() {
 
   return (
     <div className="Container">
-      <div className='containerTitle'>
-        Surah's Tilawat
+      <div className='containerHeader'>
+        <h2 className='containerTitle'>Surah's Tilawat</h2>
       </div>
       <ul className="containerList">
         {surahs.map(surah => (
@@ -62,7 +62,7 @@ function Tilawat() {
             <span className='actionButtons'>
               <FontAwesomeIcon
                 icon={playingStates[surah.surahID] ? faCirclePause : faCirclePlay}
-                onClick={() => playSurah(surah.surahID)}
+                onClick={() => playPause(surah.surahID)}
               />
             </span>
           </li>

@@ -1,9 +1,8 @@
-.containerTitle
+.containerHeader
 {
-  color: #4a148c;
   background-color: #fff;
   border-radius: 8px;
-  padding: 10px 5px;
+  padding: 5px 10px;
   text-align: center;
   align-items: center;
   margin: 10px 10px 0 10px;
@@ -12,6 +11,9 @@
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: space-between;
+}
+.containerHeader .containerTitle{
+    color: #4a148c;
 }
 
 .containerList
@@ -28,7 +30,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 0 20px;
+  padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
@@ -65,14 +67,23 @@
   font-family: 'Droid Arabic Kufi', serif;
 }
 
-.card .actionButtons{
+.actionButtons{
   display: flex;
   justify-content:space-around;
-  width: 80px;
+  width: auto;
   align-items: center;
   padding: 5px 5px;
 }
 
 .card .actionButtons svg{
   font-size: 1.2em;
+  padding-left: 10px;
+}
+
+
+
+/* Modal Styling */
+
+.modal-container{
+  
 }
