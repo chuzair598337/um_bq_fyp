@@ -6,22 +6,24 @@ import { createNotification } from '../Notification/Notification';
 
 const ChainDetail = () => {
     const { chainID } = useParams(); // Retrieve chainID from URL
-    const [chain, setChain] = useState(null);
+    const [chainDetail, setChainDetail] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    const loadChainDetail = async () => {
+        try {
+            const data = await fetchChainDetailById(chainID);
+            setChainDetail(data);
+            setLoading(false);
+        } catch (error) {
+            createNotification('error', 'Failed to Load Chain', `Error: ${error.message}`);
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const loadChainDetail = async () => {
-            try {
-                const data = await fetchChainDetailById(chainID);
-                setChain(data);
-                setLoading(false);
-            } catch (error) {
-                createNotification('error', 'Failed to Load Chain', `Error: ${error.message}`);
-                console.error('Failed to fetch chain detail:', error);
-                setLoading(false);
-            }
-        };
         loadChainDetail();
     }, [chainID]);
 
@@ -31,19 +33,37 @@ const ChainDetail = () => {
 
     if (loading) return <div>Loading...</div>;
 
+    if (error) return <div>Error: {error}</div>;
+
     return (
         <div className="ChainDetail">
-            <h2>Chain Detail</h2>
-            {chain ? (
+            {chainDetail.length > 0 ? (
                 <div>
-                    <p><strong>ID:</strong> {chain.chainID}</p>
-                    <p><strong>Title:</strong> {chain.chainTitle}</p>
-                    {/* Display other chain details */}
+                    <table className='table'>
+                        <caption>{chainDetail[0].chainTitle} Detail</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Surah</th>
+                                <th scope="col">verse From</th>
+                                <th scope="col">verse To</th>
+                                <th scope="col">Repeat Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {chainDetail.map(detail => (
+                                <tr key={detail.chainDetailID}>
+                                    <td data-label="Surah">abc</td>
+                                    <td data-label="verse From">{detail.verseFrom}</td>
+                                    <td data-label="verse To">{detail.verseTo}</td>
+                                    <td data-label="Repeat Count">{detail.repeatCount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             ) : (
-                <p>Empty Chain.</p>
+                <p>No details available for this chain.</p>
             )}
-            <button onClick={handleBack}>Back to Chains</button>
         </div>
     );
 };

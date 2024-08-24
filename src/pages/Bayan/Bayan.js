@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import * as API from '../APIWrapper'; 
+import * as API from '../../Components/APIWrapper/APIWrapper'; 
 import './Bayan.css';
 
 function Bayan() {

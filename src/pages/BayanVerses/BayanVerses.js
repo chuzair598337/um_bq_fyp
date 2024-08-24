@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './BayanVerses.css';
-import * as API from '../APIWrapper';
+import * as API from '../../Components/APIWrapper/APIWrapper';
 
 function BayanVerses() {
   const [QuranEPak, setQuranEPak] = useState([]);

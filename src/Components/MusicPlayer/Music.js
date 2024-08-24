@@ -17,8 +17,11 @@ function Music() {
         handleVolumeChange,
         play,
         pause,
-        //stop
+        stop,
+        audioFiles
     } = useMusic();
+
+    console.log(audioFiles)
 
     return (
         <div className="player">

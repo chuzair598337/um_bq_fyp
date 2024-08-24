@@ -2,12 +2,36 @@ const BASE_URL = 'http://localhost:5000/api'; // Adjust this URL based on your s
 
 // Helper function to handle responses
 async function handleResponse(response) {
+    // Check if response is OK
     if (!response.ok) {
+        // Handle error
         const errorData = await response.json();
         throw new Error(errorData.error || 'Something went wrong');
     }
+
+    // Check the Content-Type header to determine the type of response
+    const contentType = response.headers.get('Content-Type');
+
+    if (contentType && contentType.startsWith('audio/')) {
+        // Handle audio blob response
+        return response.blob();
+    } else if (contentType && contentType === 'application/json') {
+        // Handle JSON response
     return response.json();
+    } else {
+        // Handle other types of responses if needed
+        throw new Error('Unexpected response type');
+    }
 }
+
+// // Helper function to handle responses
+// async function handleResponse(response) {
+//     if (!response.ok) {
+//         const errorData = await response.json();
+//         throw new Error(errorData.error || 'Something went wrong');
+//     }
+//     return response.json();
+//}
 
 // Fetch all Surahs
 export async function fetchSurahs() {
@@ -20,13 +44,14 @@ export async function fetchSurahs() {
     }
 }
 
+
 // Fetch a single Surah by ID
 export async function fetchSurahById(surahID) {
     try {
         const response = await fetch(`${BASE_URL}/surahs/${surahID}`);
         return handleResponse(response);
     } catch (error) {
-        console.error(`Failed to fetch Surah with ID ${surahID}:`, error);
+        console.error(`Failed to fetch Surah with ID${surahID}:`, error);
         throw error;
     }
 }
@@ -78,6 +103,32 @@ export async function deleteSurah(surahID) {
     }
 }
 
+// Fetch audiofilesList for a specific Surah ID
+export async function fetchAudioFilesList(surahID) {
+    try {
+        const response = await fetch(`${BASE_URL}/surahtilawataudios/${surahID}`);
+        return handleResponse(response);
+    } catch (error) {
+        console.error(`Failed to fetch audio files List for Surah ID ${surahID}:`, error);
+        throw error;
+    }
+}
+
+// Fetch audio for a specific filename
+export async function fetchAudioFile(filename) {
+    try {
+        const response = await fetch(`${BASE_URL}/surahtilawataudios/file/${filename}`);
+        return handleResponse(response);
+    } catch (error) {
+        console.error(`Failed to fetch audio file ${filename}:`, error);
+        throw error;
+    }
+}
+
+
+
+
+
 // Fetch all QuranEPak entries
 export async function fetchQuranEPak() {
     try {
@@ -88,6 +139,25 @@ export async function fetchQuranEPak() {
         throw error;
     }
 }
+//fetchQuranEPak by surah ID 
+// APIWrapper.js
+export const fetchQuranEPakbySId = async (surahID) => {
+    const response = await fetch(`${BASE_URL}/quran/${surahID}`);
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+    const contentType = response.headers.get('Content-Type');
+
+    if (contentType && contentType.includes('application/json')) {
+        return response.json();
+    } else {
+        const text = await response.text();
+        throw new Error('Expected JSON, but received: ' + text);
+    }
+};
+
 
 // Fetch a single QuranEPak entry by ID
 export async function fetchQuranEPakById(quranEPakID) {

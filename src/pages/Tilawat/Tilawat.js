@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as API from '../APIWrapper';
+import * as API from '../../Components/APIWrapper/APIWrapper';
 import '../../Components/Global.css';
+import { useMusic } from '../../Components/MusicPlayer/MusicContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePause, faCirclePlay } from '@fortawesome/free-regular-svg-icons';
@@ -11,13 +12,13 @@ import { faCirclePause, faCirclePlay } from '@fortawesome/free-regular-svg-icons
 function Tilawat() {
   const [surahs, setSurahs] = useState([]);
   const [playingStates, setPlayingStates] = useState({});
+  const {updateAudioFiles } = useMusic();
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadSurahs = async () => {
       try {
         const data = await API.fetchSurahs();
-        console.log(data);
         setSurahs(data);
       } catch (error) {
         console.error('Failed to fetch Surahs:', error);
@@ -31,13 +32,24 @@ function Tilawat() {
     navigate(`/TilawatVerses/${surahID}`);
   };
 
-  const playPause = (surahID) => {
-    setPlayingStates((prevStates) => ({
-      ...prevStates,
-      [surahID]: !prevStates[surahID] // Toggle the state for the specific Surah
-    }));
-    // You can add code here to play the Surah audio
+  const playPause = async (surahID) => {
+    try {
+      // Toggle the playing state for the specific Surah
+      setPlayingStates((prevStates) => ({
+        ...prevStates,
+        [surahID]: !prevStates[surahID]
+      }));
+
+      // Fetch the list of audio files
+      const audioFiles = await API.fetchAudioFilesList(surahID);
+
+      updateAudioFiles(audioFiles); // Update context state with fetched audio files
+      
+    } catch (error) {
+      console.error('Error fetching audio files:', error);
+    }
   };
+
 
 
   return (

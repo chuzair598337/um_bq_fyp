@@ -35,7 +35,7 @@ const App = () => {
         {/* Microphone recording*/}
         {/* <Recorder /> */}
         {/* Music Player */}
-        {/* <Music /> */}
+        <Music />
 
         {/* Main Pages Content */}
         <main className="wrapper">

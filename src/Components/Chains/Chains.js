@@ -83,6 +83,7 @@ const Chains = () => {
         try {
             if (editMode) {
                 await updateChain(currentChain.chainID, { chainTitle: currentChain.chainTitle });
+                
                 createNotification('success', 'Chain Updated', 'The chain was successfully updated.');
                 console.log('Chain Updated Successfuly');
             } else {
@@ -154,7 +155,7 @@ const Chains = () => {
                 ))}
             </ul>
 
-            {/* Modal for Add/Update/Delete */}
+            {/* Modal for Add/Update */}
             {modalIsOpen && modalType === 'addUpdate' && (
                 <Modal
                     isOpen={modalIsOpen}

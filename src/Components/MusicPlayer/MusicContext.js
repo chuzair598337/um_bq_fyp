@@ -1,5 +1,6 @@
 // MusicContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
+import * as API from '../APIWrapper/APIWrapper';
 
 const MusicContext = createContext();
 
@@ -10,6 +11,9 @@ const MusicProvider = ({ children }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+
+    //state for audio files
+    const [audioFiles, setAudioFiles] = useState([]);
 
     const handleSeekChange = (value) => setSeekValue(value);
     const handleVolumeChange = (value) => setVolumeValue(value);
@@ -23,6 +27,25 @@ const MusicProvider = ({ children }) => {
         setCurrentTime(0);
     };
 
+    // Handler for updating audio files
+    const updateAudioFiles = useCallback(async (files) => {
+        setAudioFiles(files);
+        try {
+            for (const file of files) {
+                if (file.shouldFetch) { // Replace with your actual condition
+                    const audioBlob = await API.fetchAudioFile(file.filename);
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    // Update the file with the new URL
+                    setAudioFiles(prev => prev.map(f => f.filename === file.filename ? { ...f, audioUrl } : f));
+                    console.log(`Fetched ${file.filename}`);
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching audio files:", error);
+        }
+    }, []);
+
+
     return (
         <MusicContext.Provider
             value={{
@@ -35,7 +58,9 @@ const MusicProvider = ({ children }) => {
                 handleVolumeChange,
                 play,
                 pause,
-                stop
+                stop,
+                audioFiles,
+                updateAudioFiles
             }}
         >
             {children}
