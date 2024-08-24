@@ -1,0 +1,127 @@
+/* src/Navbar/Navbar.css */
+:root {
+    --first-color: #3498db;
+    --title-color: #333;
+    --font-semi-bold: 600;
+  }
+  
+  .header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #F4E1AC;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: var(--navbar_height),
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: var(--navbar_height);
+    padding: 0 1rem;
+  }
+  
+  .nav__logo {
+    color: var(--first-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .nav__toggle,
+  .nav__close {
+    display: none;
+  }
+  
+  .nav__toggle {
+    font-size: 1.5rem;
+    color: var(--title-color);
+    cursor: pointer;
+  }
+  
+  .nav__menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav__list {
+    display: flex;
+  }
+  .nav__item{
+    text-align: center;
+  }
+  
+  .nav__link {
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 9px 10px;
+    border-radius: 5px;
+    transition: all 0.8s ease;
+  }
+  
+  .nav__link:hover {
+    color: white;
+    background-color: #3A3B3C;
+    font-weight: bold;
+  }
+
+
+
+  /* ######################################################## */
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .nav{
+        justify-content: space-between;
+    }
+    .nav__menu {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      transform: translateX(100%);
+      z-index: 999;
+    }
+  
+    .nav__menu.show-menu {
+      display: flex;
+      transform: translateX(0);
+    }
+  
+    .nav__list {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3rem;
+      gap: 1.5rem;
+    }
+  
+    .nav__toggle {
+      display: block;
+    }
+  
+    .nav__close {
+      display: block;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #000000;
+      cursor: pointer;
+    }
+  
+    .nav__list {
+      margin-top: 3rem;
+    }
+  }
+  

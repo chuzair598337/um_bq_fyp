@@ -16,15 +16,7 @@ function Home() {
             Bayan
           </NavLink>
         </div>
-        <div className='btn btnTafheem'>
-          <NavLink to="/tafheem" className="navlink">
-            Tafheem
-          </NavLink>
-        </div>
       </div>
-      
-
-
     </>
   )
 }

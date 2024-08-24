@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './TilawatVerses.css';
-import * as API from '../APIWrapper';
+import * as API from '../../Components/APIWrapper/APIWrapper';
 
 function TilawatVerses() {
   const [QuranEPak, setQuranEPak] = useState([]);

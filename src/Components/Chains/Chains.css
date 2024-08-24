@@ -1,0 +1,31 @@
+
+.btn-info {
+    background: #17a2b8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.actionsBtn{
+    margin: 0 10px;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transform: transform 0.6 ease;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.actionsBtn:hover{
+    transform: scale(1.2);
+}

@@ -1,0 +1,175 @@
+.containerHeader
+{
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 5px 10px;
+  text-align: center;
+  align-items: center;
+  margin: 10px 10px 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: space-between;
+}
+.containerHeader .containerTitle{
+    color: #4a148c;
+}
+
+.containerList
+{
+  text-align: left;
+  list-style: none;
+  width: 100%;
+  /* background-color: orange; */
+  margin: 0;
+  padding: 10px 10px 30px 10px;
+}
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+.cardContent{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  
+}
+.card .numberBox{
+  width: 45px;
+  height: 35px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #ffebee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.leadingText{
+  font-weight: bold;
+  color: #4a148c;
+}
+
+.cardTitleEnglish,.cardTitleArabic {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a148c;
+}
+
+.cardTitleArabic{
+  /* font-family: 'Droid Arabic Kufi', serif; */
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.actionButtons{
+  display: flex;
+  justify-content:space-around;
+  width: auto;
+  align-items: center;
+  padding: 5px 5px;
+}
+
+.card .actionButtons svg{
+  font-size: 1.2em;
+  padding-left: 10px;
+}
+
+
+
+/* Modal Styling */
+
+.modal-container{
+  
+}
+
+
+
+
+/* Table Styling */
+
+.table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+.table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+.table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+.table th,
+.table td {
+  padding: .625em;
+  text-align: center;
+}
+
+.table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  .table {
+    border: 0;
+  }
+
+  .table caption {
+    font-size: 1.3em;
+  }
+  
+  .table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  .table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .table td:last-child {
+    border-bottom: 0;
+  }
+}
