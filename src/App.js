@@ -33,7 +33,7 @@ const App = () => {
         {/* Responsive Navigation Bar */}
         <Navbar />
         {/* Microphone recording*/}
-        {/* <Recorder /> */}
+        <Recorder />
         {/* Music Player */}
         <Music />
 
