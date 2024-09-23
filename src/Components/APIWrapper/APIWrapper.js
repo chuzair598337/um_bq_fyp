@@ -104,9 +104,17 @@ export async function deleteSurah(surahID) {
 }
 
 // Fetch audiofilesList for a specific Surah ID
-export async function fetchAudioFilesList(surahID) {
+export async function fetchAudioFilesList(surahID,isTilawat) {
     try {
-        const response = await fetch(`${BASE_URL}/surahtilawataudios/${surahID}`);
+        let url;
+        if(isTilawat){
+            url = `${BASE_URL}/surahtilawataudios/${surahID}`
+        }
+        else
+        {
+            url = `${BASE_URL}/surahbayanaudios/${surahID}`
+        }
+        const response = await fetch(url);
         return handleResponse(response);
     } catch (error) {
         console.error(`Failed to fetch audio files List for Surah ID ${surahID}:`, error);
@@ -115,9 +123,17 @@ export async function fetchAudioFilesList(surahID) {
 }
 
 // Fetch audio for a specific filename
-export async function fetchAudioFile(filename) {
+export async function fetchAudioFile(filename,isTilawat) {
     try {
-        const response = await fetch(`${BASE_URL}/surahtilawataudios/file/${filename}`);
+        let url;
+        if(isTilawat){
+            url = `${BASE_URL}/surahtilawataudios/file/${filename}`
+        }
+        else
+        {
+            url = `${BASE_URL}/surahbayanaudios/file/${filename}`
+        }
+        const response = await fetch(url);
         return handleResponse(response);
     } catch (error) {
         console.error(`Failed to fetch audio file ${filename}:`, error);

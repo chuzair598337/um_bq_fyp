@@ -73,8 +73,15 @@
   font-size: 16px;
   font-weight: bold;
   color: #4a148c;
-  /* Align text to the left */
-  text-align: left; 
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.cardVerseUrdu {
+  font-size: 16px;
+  font-weight: normal;
+  color: black;
+  text-align: right; 
   /* Enables flexbox for alignment */
   /* display: flex;  */
   /* Aligns content to the start of the container */

@@ -12,7 +12,7 @@ import { faCirclePause, faCirclePlay } from '@fortawesome/free-regular-svg-icons
 function Tilawat() {
   const [surahs, setSurahs] = useState([]);
   const [playingStates, setPlayingStates] = useState({});
-  const {updateAudioFiles } = useMusic();
+  const {updateAudioFiles,setIsTilawat } = useMusic();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,15 +36,10 @@ function Tilawat() {
 
   const playPause = async (surahID) => {
     try {
-      // Toggle the playing state for the specific Surah
-      setPlayingStates((prevStates) => ({
-        ...prevStates,
-        [surahID]: !prevStates[surahID]
-      }));
 
       // Fetch the list of audio files
       const audioFiles = await API.fetchAudioFilesList(surahID);
-
+      setIsTilawat(true);
       updateAudioFiles(audioFiles); // Update context state with fetched audio files
       
     } catch (error) {

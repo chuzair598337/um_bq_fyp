@@ -13,6 +13,8 @@ const MusicProvider = ({ children }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isRepeatOn, setIsRepeatOn] = useState(false);
 
+    const [isTilawat, setIsTilawat] = useState(false);
+
     const audioRef = useRef(new Audio());
 
     useEffect(() => {
@@ -149,7 +151,7 @@ const MusicProvider = ({ children }) => {
             const tempList = [];
             for (const file of files) {
                 if (file.found) {
-                    const audioBlob = await API.fetchAudioFile(file.verseFileName);
+                    const audioBlob = await API.fetchAudioFile(file.verseFileName, isTilawat ? true : false);
                     const audioUrl = URL.createObjectURL(audioBlob);
                     tempList.push(audioUrl);
                 } else {
@@ -170,7 +172,7 @@ const MusicProvider = ({ children }) => {
         } catch (error) {
             console.error("Error fetching audio files:", error);
         }
-    }, [setAudioFiles]);
+    }, [setAudioFiles,isTilawat]);
 
     return (
         <MusicContext.Provider
@@ -190,7 +192,8 @@ const MusicProvider = ({ children }) => {
                 updateAudioFiles,
                 isRepeatOn,
                 toggleRepeat,
-                currentIndex
+                currentIndex,
+                setIsTilawat
             }}
         >
             {children}
