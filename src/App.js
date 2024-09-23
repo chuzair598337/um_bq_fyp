@@ -19,8 +19,8 @@ import { MusicProvider } from "./Components/MusicPlayer/MusicContext";
 import Chains from "./Components/Chains/Chains";
 import ChainDetail from "./Components/ChainDetail/ChainDetail"
 import Recordbtn from "./Temp/recordingButton/Recordbtn";
-import BookMark from "./pages/BookMark/BookMark";
-import AddBookMark from "./pages/BookMark/AddBookMark";
+import BookMark from "./Components/BookMark/BookMark";
+import AddBookMark from "./Components/BookMark/AddBookMark";
 import TilawatVerses from "./pages/TilawatVerses/TilawatVerses";
 
 

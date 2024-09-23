@@ -138,16 +138,19 @@ const Chains = () => {
                         <span className='actionButtons'>
                             <FontAwesomeIcon
                                 icon={playingStates[chain.chainID] ? faCirclePause : faCirclePlay}
+                                className="icon"
                                 onClick={() => playPause(chain.chainID)}
                             />
                             <FontAwesomeIcon
                                 icon={faEdit}
                                 onClick={() => handleEdit(chain)}
+                                className="icon"
                                 title='Edit'
                             />
                             <FontAwesomeIcon
                                 icon={faTrashCan}
                                 onClick={() => handleDelete(chain.chainID)}
+                                className="icon"
                                 title='Delete'
                             />
                         </span>
