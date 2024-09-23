@@ -47,6 +47,7 @@ const App = () => {
             <Route path="/bayanverses/:surahID" element={<BayanVerses />} />
             <Route path="/tafheem" element={<Tafheem />} />
             <Route path="/tilawat" element={<Tilawat />} /> 
+            <Route path="/TilawatVerses/:surahID" element={<TilawatVerses />} />
             <Route path="/bookmark" element={<BookMark />} />
             <Route path="/chains" element={<Chains />} />
             <Route path="/chaindetail/:chainID" element={<ChainDetail />} />

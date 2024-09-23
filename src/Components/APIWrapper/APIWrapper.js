@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000/api'; // Adjust this URL based on your server location
+const BASE_URL = 'http://localhost:8080/api'; // Adjust this URL based on your server location
 
 // Helper function to handle responses
 async function handleResponse(response) {
@@ -142,7 +142,7 @@ export async function fetchQuranEPak() {
 //fetchQuranEPak by surah ID 
 // APIWrapper.js
 export const fetchQuranEPakbySId = async (surahID) => {
-    const response = await fetch(`${BASE_URL}/quran/${surahID}`);
+    const response = await fetch(`${BASE_URL}/quranepakBySurahID/${surahID}`);
 
     if (!response.ok) {
         throw new Error('Network response was not ok');

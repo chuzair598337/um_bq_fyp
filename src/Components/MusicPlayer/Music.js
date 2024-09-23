@@ -1,12 +1,10 @@
-
-import React  from 'react';
+import React, { useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import "./Music.css";
-import { useMusic } from './MusicContext'
+import './Music.css';
+import { useMusic } from './MusicContext';
 import formatTime from '../../utils/formatTime';
 
 function Music() {
-
     const {
         seekValue,
         volumeValue,
@@ -15,19 +13,41 @@ function Music() {
         duration,
         handleSeekChange,
         handleVolumeChange,
-        play,
-        pause,
-        stop,
-        audioFiles
+        handlePlayPause,
+        playNext,
+        playPrevious,
+        audioFiles,
+        updateAudioFiles,
+        isRepeatOn,
+        toggleRepeat,
+        currentIndex
     } = useMusic();
 
-    console.log(audioFiles)
+    // Fetch and update audio files when component mounts
+    useEffect(() => {
+        const files = [
+            // { verseFileName: '001001.mp3', found: true },
+            // { verseFileName: '001002.mp3', found: true },
+            // { verseFileName: '001003.mp3', found: true },
+            // { verseFileName: '001004.mp3', found: true },
+            // { verseFileName: '001005.mp3', found: true },
+            // { verseFileName: '001006.mp3', found: true },
+            // { verseFileName: '001007.mp3', found: true }
+
+        ];
+        updateAudioFiles(files); // Fetch audio files from API
+    }, [updateAudioFiles]);
+
+    // Only show the player if there are audio files
+    if (audioFiles.length === 0) {
+        return null; // Return null to hide the player when no audio files are present
+    }
 
     return (
         <div className="player">
             <div className="player-wrapper">
                 <div className="details">
-                    <div className="now-playing">PLAYING 7 OF 286</div>
+                    <div className="now-playing">PLAYING {currentIndex} OF {audioFiles.length}</div>
                     <div className="track-name">
                         <div className="track-english-name">Track English</div>
                         <div className="track-arabic-name">Track Arabic</div>
@@ -68,17 +88,33 @@ function Music() {
                 </div>
 
                 <div className="buttons">
-                <div className="repeat-track">
-                        <i className="fas fa-repeat" title="repeat"></i>
+                    <div className="repeat-track">
+                        <i
+                            className={`fas fa-repeat ${isRepeatOn ? 'active' : ''}`} // Add class for active state
+                            title="repeat"
+                            onClick={toggleRepeat} // Toggle repeat when clicked
+                        ></i>
                     </div>
                     <div className="prev-track">
-                        <i className="fas fa-step-backward" title='Play Previous'></i>
+                        <i
+                            className={`fas fa-step-backward ${currentIndex === 0 ? 'disabledButton' : ''}`}
+                            title="Play Previous"
+                            onClick={currentIndex === 0 ? null : playPrevious} // Disable click if at the first track
+                        ></i>
                     </div>
                     <div className="playpause-track">
-                        <i className={`fas fa-${isPlaying ? 'pause' : 'play'}-circle fa-2x`} onClick={isPlaying ? pause : play} title='Play/Pause'></i>
+                        <i
+                            className={`fas fa-${isPlaying ? 'pause' : 'play'}-circle fa-2x`}
+                            onClick={handlePlayPause} // Play or pause depending on the current state
+                            title="Play/Pause"
+                        ></i>
                     </div>
                     <div className="next-track">
-                        <i className="fas fa-step-forward" title='Play Next'></i>
+                        <i
+                            className={`fas fa-step-forward ${currentIndex === audioFiles.length - 1 ? 'disabledButton' : ''}`}
+                            title="Play Next"
+                            onClick={currentIndex === audioFiles.length - 1 ? null : playNext} // Disable click if at the last track
+                        ></i>
                     </div>
                     <div className="random-track">
                         <i className="fas fa-random" title="random"></i>
@@ -100,7 +136,3 @@ function Music() {
 }
 
 export default Music;
-
-
-
-

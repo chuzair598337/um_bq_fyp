@@ -35,7 +35,7 @@ export default function Recorder() {
                 </div>
             </div> */}
 
-            <div class="right-corder-container">
+            <div className="right-corder-container">
                 <button
                     className="right-corder-container-button"
                     onMouseEnter={handleMouseEnter}

@@ -29,7 +29,9 @@ function Tilawat() {
   }, []);
 
   const handleSurahClick = (surahID) => {
+    playPause(surahID)
     navigate(`/TilawatVerses/${surahID}`);
+
   };
 
   const playPause = async (surahID) => {
@@ -71,12 +73,12 @@ function Tilawat() {
               <span className="cardTitleArabic">{surah.surahArabicName}</span>
 
             </div>
-            <span className='actionButtons'>
+            {/* <span className='actionButtons'>
               <FontAwesomeIcon
                 icon={playingStates[surah.surahID] ? faCirclePause : faCirclePlay}
                 onClick={() => playPause(surah.surahID)}
               />
-            </span>
+            </span> */}
           </li>
         ))}
       </ul>
