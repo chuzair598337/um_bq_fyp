@@ -26,6 +26,7 @@ function Tilawat() {
     };
 
     loadSurahs();
+    setIsTilawat(true);
   }, []);
 
   const handleSurahClick = (surahID) => {
@@ -38,7 +39,7 @@ function Tilawat() {
     try {
 
       // Fetch the list of audio files
-      const audioFiles = await API.fetchAudioFilesList(surahID);
+      const audioFiles = await API.fetchAudioFilesList(surahID,true);
       setIsTilawat(true);
       updateAudioFiles(audioFiles); // Update context state with fetched audio files
       

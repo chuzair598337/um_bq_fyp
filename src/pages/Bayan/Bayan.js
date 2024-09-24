@@ -34,7 +34,7 @@ function Bayan() {
   const playPause = async (surahID) => {
     try {
       // Fetch the list of audio files
-      const audioFiles = await API.fetchAudioFilesList(surahID);
+      const audioFiles = await API.fetchAudioFilesList(surahID,false);
       setIsTilawat(false);
       updateAudioFiles(audioFiles); // Update context state with fetched audio files
     } catch (error) {
