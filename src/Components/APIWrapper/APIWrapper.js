@@ -17,7 +17,7 @@ async function handleResponse(response) {
         return response.blob();
     } else if (contentType && contentType === 'application/json') {
         // Handle JSON response
-    return response.json();
+        return response.json();
     } else {
         // Handle other types of responses if needed
         throw new Error('Unexpected response type');
@@ -104,14 +104,13 @@ export async function deleteSurah(surahID) {
 }
 
 // Fetch audiofilesList for a specific Surah ID
-export async function fetchAudioFilesList(surahID,isTilawat) {
+export async function fetchAudioFilesList(surahID, isTilawat) {
     try {
         let url;
-        if(isTilawat){
+        if (isTilawat) {
             url = `${BASE_URL}/surahtilawataudios/${surahID}`
         }
-        else
-        {
+        else {
             url = `${BASE_URL}/surahbayanaudios/${surahID}`
         }
         const response = await fetch(url);
@@ -122,15 +121,31 @@ export async function fetchAudioFilesList(surahID,isTilawat) {
     }
 }
 
-// Fetch audio for a specific filename
-export async function fetchAudioFile(filename,isTilawat) {
+// Fetch audiofilesList for a specific Surah ID
+export async function fetchBookmarkAudioFilesList(bookmark, isTilawat) {
     try {
         let url;
-        if(isTilawat){
+        if (isTilawat) {
+            url = `${BASE_URL}/surahtilawataudiosinrange/${bookmark.surahID}/${bookmark.verseFrom}/${bookmark.verseTo}`;
+        } else {
+            url = `${BASE_URL}/surahbayanaudiosinrange/${bookmark.surahID}/${bookmark.verseFrom}/${bookmark.verseTo}`;
+        }
+        const response = await fetch(url);
+        return handleResponse(response);
+    } catch (error) {
+        console.error(`Failed to fetch audio files List for Surah ID ${bookmark.surahID}:`, error);
+        throw error;
+    }
+}
+
+// Fetch audio for a specific filename
+export async function fetchAudioFile(filename, isTilawat) {
+    try {
+        let url;
+        if (isTilawat) {
             url = `${BASE_URL}/surahtilawataudios/file/${filename}`
         }
-        else
-        {
+        else {
             url = `${BASE_URL}/surahbayanaudios/file/${filename}`
         }
         const response = await fetch(url);
@@ -398,6 +413,7 @@ export async function fetchChainById(chainID) {
 // Create a new Chain
 export async function createChain(chainData) {
     try {
+        console.log("createChain")
         const response = await fetch(`${BASE_URL}/chains`, {
             method: 'POST',
             headers: {
@@ -454,12 +470,12 @@ export async function fetchChainDetails() {
 }
 
 // Fetch a single ChainDetail by ID
-export async function fetchChainDetailById(chainDetailID) {
+export async function fetchChainDetailById(chainID) {
     try {
-        const response = await fetch(`${BASE_URL}/chaindetails/${chainDetailID}`);
+        const response = await fetch(`${BASE_URL}/chaindetails/${chainID}`);
         return handleResponse(response);
     } catch (error) {
-        console.error(`Failed to fetch ChainDetail with ID ${chainDetailID}:`, error);
+        console.error(`Failed to fetch ChainDetail with ID ${chainID}:`, error);
         throw error;
     }
 }

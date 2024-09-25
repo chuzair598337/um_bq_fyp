@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPlusSquare, faEdit,faCirclePause, faCirclePlay } from '@fortawesome/free-regular-svg-icons';
+import { faTrashCan, faPlusSquare, faEdit, faCirclePause, faCirclePlay } from '@fortawesome/free-regular-svg-icons';
 
 import { createNotification } from '../Notification/Notification';
 
@@ -14,12 +14,13 @@ const Chains = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalType, setModalType] = useState(null); // 'addUpdate', 'delete', or null
     const [editMode, setEditMode] = useState(false);
-    const [currentChain, setCurrentChain] = useState({ chainID: null, chainTitle: '' });
-    const [newChainTitle, setNewChainTitle] = useState('');
+
+    // Update initial state with new fields
+    const [currentChain, setCurrentChain] = useState({ chainID: null, chainTitle: '', type: '', repeatCount: 1 });
+    const [newChain, setNewChain] = useState({ chainID: '', chainTitle: '', type: '', repeatCount: 1 });
+    
     const [confirmDelete, setConfirmDelete] = useState(null); // Store the chainID to delete
     const navigate = useNavigate();
-
-    const [playingStates, setPlayingStates] = useState({});
 
     const loadChains = async () => {
         try {
@@ -74,7 +75,7 @@ const Chains = () => {
 
     const handleAdd = () => {
         setEditMode(false);
-        setNewChainTitle('');
+        setNewChain({ chainID: '', chainTitle: '', type: '', repeatCount: 1 })
         setModalType('addUpdate');
         setModalIsOpen(true);
     };
@@ -82,14 +83,18 @@ const Chains = () => {
     const handleSave = async () => {
         try {
             if (editMode) {
-                await updateChain(currentChain.chainID, { chainTitle: currentChain.chainTitle });
-                
+                await updateChain(currentChain.chainID, {
+                    chainTitle: currentChain.chainTitle,
+                    type: currentChain.type,
+                    repeatCount: currentChain.repeatCount
+                });
+
                 createNotification('success', 'Chain Updated', 'The chain was successfully updated.');
-                console.log('Chain Updated Successfuly');
+                console.log('Chain Updated Successfully');
             } else {
-                await createChain({ chainTitle: newChainTitle });
+                await createChain(newChain);
                 createNotification('success', 'Chain Created', 'The new chain was successfully created.');
-                console.log('Cretaed New Chain')
+                console.log('Created New Chain');
             }
             await loadChains(); // Refresh the data after save
         } catch (error) {
@@ -105,24 +110,22 @@ const Chains = () => {
     };
 
     const playPause = (surahID) => {
-        setPlayingStates((prevStates) => ({
-          ...prevStates,
-          [surahID]: !prevStates[surahID] // Toggle the state for the specific Surah
-        }));
+
         // You can add code here to play the Surah audio
-      };
+    };
 
     return (
 
         <div className="Container">
             <div className='containerHeader'>
                 <h2 className='containerTitle'>Chains</h2>
-                <div className='actionButtons'>
+                <div className='action-buttons'>
                     <FontAwesomeIcon
                         icon={faPlusSquare}
                         size='2x'
                         onClick={() => handleAdd()}
-                        title='Delete'
+                        className="icon"
+                        title='Add'
                     />
                 </div>
             </div>
@@ -132,12 +135,19 @@ const Chains = () => {
                         key={chain.chainID}
                         className="card"
                     >
-                        <div className='cardContent' onClick={() => handleChainClick(chain.chainID)}>
-                            <span className="cardTitleEnglish">{chain.chainTitle}</span>
+                        <div className='card-content' onClick={() => handleChainClick(chain.chainID)}>
+                            <div className="card-title">{chain.chainTitle}</div>
+                            <div className="cardContent">
+                                <div className="card-details"><strong>Repeat : </strong>{chain.repeatCount}</div>
+                            </div>
+                            <div className={`card-type ${chain.type.toLowerCase()}`}>
+                                {chain.type}
+                            </div>
+
                         </div>
-                        <span className='actionButtons'>
+                        <span className='action-buttons'>
                             <FontAwesomeIcon
-                                icon={playingStates[chain.chainID] ? faCirclePause : faCirclePlay}
+                                icon={faCirclePlay}
                                 className="icon"
                                 onClick={() => playPause(chain.chainID)}
                             />
@@ -165,31 +175,59 @@ const Chains = () => {
                     onClose={handleCancel}
                     header={<h2>{editMode ? 'Edit Chain' : 'Add New Chain'}</h2>}
                     body={
-                        <div>
+                        <div className="modal-form">
                             <label>
                                 Chain Title:
                                 <input
                                     type="text"
-                                    value={editMode ? currentChain.chainTitle : newChainTitle}
+                                    value={editMode ? currentChain.chainTitle : newChain.chainTitle}
                                     onChange={(e) =>
                                         editMode
                                             ? setCurrentChain({ ...currentChain, chainTitle: e.target.value })
-                                            : setNewChainTitle(e.target.value)
+                                            : setNewChain({...newChain,chainTitle : e.target.value})
+                                    }
+                                />
+                            </label>
+                            {/* New fields for type and repeatCount */}
+                            <label>
+                                Type:
+                                <select
+                                    value={editMode ? currentChain.type : newChain.type}
+                                    onChange={(e) =>
+                                        editMode
+                                            ? setCurrentChain({ ...currentChain, type: e.target.value })
+                                            : setNewChain({...newChain,type : e.target.value})
+                                    }
+                                >
+                                    <option value="tilawat">Tilawat</option>
+                                    <option value="bayan">Bayan</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Repeat Count:
+                                <input
+                                    type="number"
+                                    value={editMode ? currentChain.repeatCount : newChain.repeatCount}
+                                    onChange={(e) =>
+                                        editMode
+                                            ? setCurrentChain({ ...currentChain, repeatCount: parseInt(e.target.value) })
+                                            : setNewChain({ ...newChain, repeatCount: parseInt(e.target.value) })
                                     }
                                 />
                             </label>
                         </div>
                     }
                     footer={
-                        <div>
-                            <button onClick={handleSave}>Save</button>
-                            <button onClick={handleCancel}>Cancel</button>
-                        </div>
+                        <>
+                            <button className='modal-submit-btn' onClick={handleSave}>Save</button>
+                            <button className='modal-submit-btn' onClick={handleCancel}>Cancel</button>
+                        </>
                     }
                 />
             )}
 
-            {/* Modal for delete Conformation. */}
+            {/* Modal for delete confirmation */}
             {modalIsOpen && modalType === 'delete' && (
                 <Modal
                     isOpen={modalIsOpen}
@@ -201,10 +239,10 @@ const Chains = () => {
                         <p>Are you sure you want to delete this chain?</p>
                     }
                     footer={
-                        <div>
-                            <button onClick={handleConfirmDelete}>Yes, Delete</button>
-                            <button onClick={handleCancelDelete}>Cancel</button>
-                        </div>
+                        <>
+                            <button className='modal-submit-btn' onClick={handleConfirmDelete}>Yes, Delete</button>
+                            <button className='modal-submit-btn' onClick={handleCancelDelete}>Cancel</button>
+                        </>
                     }
                 />
             )}
